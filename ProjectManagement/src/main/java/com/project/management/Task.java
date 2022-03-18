@@ -1,24 +1,79 @@
 package com.project.management;
 
-import com.project.Interfaces.Tracking;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+import com.project.abstracts.Duration;
 import com.project.enumerations.WorkStatus;
 
-public class Task implements Tracking{
+/**
+ * @author mbaskaran
+ * Task class with task id, description, status, assigned user, list of resources needed.
+ * Override gettotalduration & remaining duration of tasks
+ */
+public class Task extends Duration{
+	int id;
+	String description;
+	WorkStatus status;
+	User user;
+	List<Resource> resources;
+	LocalDateTime expectedEndTime;
 
-	/**
-	 * returns current status of task
-	 */
-	public WorkStatus trackByStatus() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public WorkStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(WorkStatus status) {
+		this.status = status;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<Resource> getResources() {
+		return resources;
+	}
+
+	public void setResources(List<Resource> resources) {
+		this.resources = resources;
+	}
+
+	public LocalDateTime getExpectedEndTime() {
+		return expectedEndTime;
+	}
+
+	public void setExpectedEndTime(LocalDateTime expectedEndTime) {
+		this.expectedEndTime = expectedEndTime;
 	}
 
 	/**
-	 * returns remaining duration of tasks
+	 * @return Actual remaining duration of tasks
 	 */
-	public int trackByDuration() {
-		// TODO Auto-generated method stub
-		return 0;
+	@Override
+	public long getRemainingActualDuration() {
+		return ChronoUnit.DAYS.between(LocalDateTime.now(), this.expectedEndTime);
 	}
 
 }

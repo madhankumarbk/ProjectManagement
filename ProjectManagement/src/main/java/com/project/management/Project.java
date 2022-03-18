@@ -1,24 +1,71 @@
 package com.project.management;
 
-import com.project.Interfaces.Tracking;
-import com.project.enumerations.WorkStatus;
+import java.util.List;
 
-public class Project implements Tracking {
+import com.project.abstracts.Duration;
 
-	/**
-	 * returns current status of overall project
-	 */
-	public WorkStatus trackByStatus() {
-		// TODO Auto-generated method stub
-		return null;
+public class Project extends Duration {
+	int id;
+	String name;
+	String description;
+	List<Task> tasks;
+	List<User> users;
+	List<Resource> resources;
+	
+	
+
+	public int getId() {
+		return id;
 	}
 
-	/**
-	 * returns remaining duration of overall project
-	 */
-	public int trackByDuration() {
-		// TODO Auto-generated method stub
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public List<Resource> getResources() {
+		return resources;
+	}
+
+	public void setResources(List<Resource> resources) {
+		this.resources = resources;
+	}
+
+	@Override
+	public long getRemainingActualDuration() {
 		return 0;
 	}
+
 
 }
