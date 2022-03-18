@@ -2,6 +2,7 @@ package com.project.management;
 
 import java.util.List;
 
+import com.project.abstracts.Dependency;
 import com.project.abstracts.Duration;
 import com.project.enumerations.DependencyStatus;
 import com.project.enumerations.WorkStatus;
@@ -15,17 +16,7 @@ public class Task extends Duration{
 	int id;
 	String description;
 	WorkStatus status;
-	User user;
-	List<Resource> resources;
-	List<Task> dependentTask;
-
-	public List<Task> getDependentTask() {
-		return dependentTask;
-	}
-
-	public void setDependentTask(List<Task> dependentTask) {
-		this.dependentTask = dependentTask;
-	}
+	Dependency dependency;
 
 	public int getId() {
 		return id;
@@ -51,25 +42,9 @@ public class Task extends Duration{
 		this.status = status;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public List<Resource> getResources() {
-		return resources;
-	}
-
-	public void setResources(List<Resource> resources) {
-		this.resources = resources;
-	}
 	
 	boolean isTaskCanBeStarted() {
-		return DependencyStatus.AVAILABLE == user.getStatus() && resources.stream().allMatch(resource -> resource.status == DependencyStatus.AVAILABLE) &&
-				dependentTask.stream().allMatch(task -> task.status == WorkStatus.COMPLETED);
+		return dependency.isAllDependencyResolved();
 	}
 
 }
