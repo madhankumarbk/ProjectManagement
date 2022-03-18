@@ -7,9 +7,7 @@ public abstract class Duration {
 	protected LocalDateTime startTime;
 	protected LocalDateTime endTime;
 	
-	public abstract long getRemainingActualDuration(); 
-	
-	public long getRemainingExpectedDuration() {
+	public long getRemainingDuration() {
 		return ChronoUnit.DAYS.between(LocalDateTime.now(), endTime);
 	}
 

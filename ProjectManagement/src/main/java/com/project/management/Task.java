@@ -1,10 +1,9 @@
 package com.project.management;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import com.project.abstracts.Duration;
+import com.project.enumerations.DependencyStatus;
 import com.project.enumerations.WorkStatus;
 
 /**
@@ -18,7 +17,15 @@ public class Task extends Duration{
 	WorkStatus status;
 	User user;
 	List<Resource> resources;
-	LocalDateTime expectedEndTime;
+	List<Task> dependentTask;
+
+	public List<Task> getDependentTask() {
+		return dependentTask;
+	}
+
+	public void setDependentTask(List<Task> dependentTask) {
+		this.dependentTask = dependentTask;
+	}
 
 	public int getId() {
 		return id;
@@ -59,21 +66,10 @@ public class Task extends Duration{
 	public void setResources(List<Resource> resources) {
 		this.resources = resources;
 	}
-
-	public LocalDateTime getExpectedEndTime() {
-		return expectedEndTime;
-	}
-
-	public void setExpectedEndTime(LocalDateTime expectedEndTime) {
-		this.expectedEndTime = expectedEndTime;
-	}
-
-	/**
-	 * @return Actual remaining duration of tasks
-	 */
-	@Override
-	public long getRemainingActualDuration() {
-		return ChronoUnit.DAYS.between(LocalDateTime.now(), this.expectedEndTime);
+	
+	boolean isTaskCanBeStarted() {
+		return DependencyStatus.AVAILABLE == user.getStatus() && resources.stream().allMatch(resource -> resource.status == DependencyStatus.AVAILABLE) &&
+				dependentTask.stream().allMatch(task -> task.status == WorkStatus.COMPLETED);
 	}
 
 }

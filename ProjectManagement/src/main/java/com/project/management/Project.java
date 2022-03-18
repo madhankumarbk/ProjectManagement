@@ -11,8 +11,6 @@ public class Project extends Duration {
 	List<Task> tasks;
 	List<User> users;
 	List<Resource> resources;
-	
-	
 
 	public int getId() {
 		return id;
@@ -61,11 +59,9 @@ public class Project extends Duration {
 	public void setResources(List<Resource> resources) {
 		this.resources = resources;
 	}
-
-	@Override
-	public long getRemainingActualDuration() {
-		return 0;
+	
+	boolean isProjectPossibleToComplete() {
+		return getTotalDuration() == getRemainingDuration();
 	}
-
 
 }
